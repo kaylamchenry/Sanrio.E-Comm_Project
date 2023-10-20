@@ -3,6 +3,7 @@
     width: 10%;
     height: 20px;
     display: flex;
+    max-height:10px
 }
 
 h1{
@@ -16,15 +17,18 @@ display: flex;
 nav {
     background-color: #edf5f0; /* Navbar background color */
     color: rgb(16, 8, 8); /* Text color */
-    padding: 100px; /* Padding for the entire navbar */
+    
     display: flex;
 }
 
 .navbar-brand {
     font-size: 24px; /* Adjust font size of the brand/logo */
-    color: burlywood;
+    color: #cf7fb8;
+    letter-spacing: 2px;
     text-align: left;
-    position:fixed;
+    float:left;
+    padding-right:24%;
+    margin-left:100px;
     position: left;
     border-radius: 100px;
      
@@ -37,7 +41,9 @@ nav {
 
 /* Add hover effect for links */
 .nav-link:hover {
+    color: #cf7fb8;
     text-decoration: underline;
+
 }
 @media (max-width: 100px) {
     #carouselExampleFade {
@@ -45,4 +51,114 @@ nav {
         height: 20px; /* Adjust the height for smaller screens */
         display: flex;
     }
+}
+
+#slideshowwrapy{
+max-height: 500px;
+
+}
+
+/* slider section */
+.slider_section {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-size: cover;
+    background-position: bottom;
+  }
+  
+  .slider_section .row {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .slider_section #customCarousel1 {
+    width: 100%;
+    position: unset;
+  }
+  
+  .slider_section .detail-box {
+    padding-bottom: 90px;
+  }
+  
+  .slider_section .detail-box h1 {
+    
+    margin-bottom: 25px;
+    color: #1f101d;
+  }
+  
+  .slider_section .detail-box p {
+    color: #444;
+    font-size: 15px;
+    
+  }
+  
+  .slider_section .detail-box a {
+   
+    margin-bottom: 25px;
+    color: #ac359c;
+    text-transform: uppercase;
+    padding: 10px 45px;
+    background-color: #e997d77a;
+    border: 1px solid #c93c7e;
+    border-radius: 5px;
+    color: #ffffff;
+    margin-top: 15px;
+  }
+  
+  .slider_section .detail-box a:hover {
+    background-color: transparent;
+    color: #ff1dd968;
+  }
+  
+  .slider_section .img-box img {
+    width: 100%;
+ 
+  }
+  .about_section .detail-box p {
+    margin-top: 10px;
+    
+  }
+  
+  .about_section .detail-box a {
+    margin-top: 15px;
+    display: inline-block;
+    font-family: 'Merriweather Sans', sans-serif;
+    text-transform: uppercase;
+    padding: 10px 45px;
+    background-color: #e997d77a;
+    border: 1px solid #c93c7e;
+    border-radius: 2px;
+    color: #ffffff;
+    
+  }
+  
+  .about_section .detail-box a:hover {
+    background-color: transparent;
+    color: #ff1dd968;
+  }
+  
+  .about_section .img-box img {
+    width: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, a{
+    font-family: 'Montserrat', sans-serif;
+
+  }
+
+  .dropdown-menu{
+    position: static;
+  }
+
+  @media (min-width: 576px)
+.navbar-expand-sm .navbar-nav .dropdown-menu {
+    position: static !important;
 }
