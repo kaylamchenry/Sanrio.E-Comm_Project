@@ -24,7 +24,7 @@ nav {
     font-size: 24px; /* Adjust font size of the brand/logo */
     color: burlywood;
     text-align: left;
-    position:fixed;
+    position:relative;
     position: left;
     border-radius: 100px;
      

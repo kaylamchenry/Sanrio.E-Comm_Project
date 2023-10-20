@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="username" href="link.html">
 
     <title>Home Page</title>
 </head>
@@ -52,8 +53,8 @@
           <div>
             <div class="jumbotron jumbotron-fluid">
               <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
-                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                <h1 class="display-4">login</h1>
+                <p class="lead">log in to start adding to your collection</p>
               </div>
               </section>
               </main>
@@ -63,67 +64,84 @@
             </article>
             <!-- possibly more here -->
             </main>
-</body>
+            <section>
+            <main>
 
-<div class="container">
-    <main>
-      <p>
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim neque veniam dolore quasi eius veritatis, aliquam labore molestias illum eos, quibusdam accusantium voluptates, sequi doloribus sint ad possimus exercitationem at.
-      </p>
-     </main>
-  </div>
+<main>
 
+    <div class="container">
+    
+    <div class="mb-3">
+    
+    <label for="" class="form-label">Username</label>
+    
+    <input type="text"
+    
+    class="form-control" name="" id="username" aria-describedby="helpId" placeholder="">
+    
+    <small id="helpId" class="form-text text-muted">Help text</small>
+    
+    </div>
+    
+    
+    
+    
+    
+    <div class="mb-3">
+    
+    <label for="" class="form-label">Password</label>
+    
+    <input type="password" class="form-control" name="" id="passcode" placeholder="">
+    
+    </div>
+    
+    <button type="button" class="btn btn-primary" onclick="checkPassword()">Login</button>
+    
+    </div>
+    
+    <script>
+    
+    "use strict";
+    
+    function checkPassword() {
+    
+    let passcode = 1234;
+    
+    let username = "student";
+    
+    
+    
+    const enteredPasscode = document.getElementById("passcode").value;
+    
+    if(enteredPasscode == passcode & username == "student") {
+    
+    alert("You are free to enter the website");
+    
+    location.href = "http://www.google.com";
+    
+    }
+    
+    else {
+    
+    alert("username or password is incorrect. try again");
+    
+    location.href = "https://google.com";
+    
+    }
+    
+    
+    
+    }
+
+         </script>
+            </main>
+            </main>
+            </section>
+            </body>
+<br>
 
   <!-- This is the footer section -->
 
-  <div class="container">
-      <footer>
-        <div class="row">
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">About</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">About</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Home</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Features</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">Pricing</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">FAQs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-info">About</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form>
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden">Email address</label>
-                <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                <button class="btn btn-primary" type="button">Subscribe</button>
-              </div>
-            </form>
-          </div>
-        </div>
 
         <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
           <p>© 2023 Company, Inc. All rights reserved.</p>
