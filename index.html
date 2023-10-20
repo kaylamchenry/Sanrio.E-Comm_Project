@@ -12,18 +12,22 @@
 <!-- This is the navigation section -->
 <header>
     <nav class="navbar navbar-expand-sm" >
-        <a class="navbar-brand" href="#">Viva Luxe Jewels</a>
+      <nav id="navbar"></nav>
+        <a class="navbar-brand" href="#">company name</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation"></button>  
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
+                <li class="nav-item mx-3">
                     <a class="nav-link" href="#" aria-current="page">Home <span class="visually-hidden"></span></a>
                 </li>
                 <li class="nav-item">
+                <li class="nav-item mx-3">
                     <a class="nav-link" href="#">Link</a>
                 </li>
                 <li class="nav-item dropdown">
+                <li class="nav-item mx-3">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
                         <a class="dropdown-item" href="#">Action 1</a>
@@ -32,6 +36,7 @@
                 </li>
             </ul>
             <form class="d-flex my-2 my-lg-0">
+           
                 <input class="form-control me-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -39,12 +44,24 @@
     </nav>
 </header>
 <!-- end of header and navigation -->
-
-<h1>welcome</h1>
+<main>
 <body>
     <main>
+      <section>
+        <div>
+          <div>
+            <div class="jumbotron jumbotron-fluid">
+              <div class="container">
+                <h1 class="display-4">Fluid jumbotron</h1>
+                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+              </div>
+            
+            </div>
+        </div>
+      </section>
         <section> <!-- slideshow html -->
-            <div class="container">
+            <div class="container-fluid">
+              <div id="media"></div>
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
@@ -68,9 +85,11 @@
                   </div>
 
             </div>
+          </main>
+          </div>
 
 <!-- end of slideshow html -->
-
+<br>
         </section>
         <section>
             <h2>Services</h2>
