@@ -1,5 +1,5 @@
 # Introduction
-Immerse yourself in the enchanting world of Sanrio, where iconic characters like Hello Kitty, My Melody, and Gudetama come to life. Discover the latest releases, exclusive collaborations, and collectible items that will add a touch of magic to your collection.
+Immerse yourself in the enchanting world of Sanrio, where iconic characters
 
 Experience the enchantment with our carefully chosen items that bring a sense of magic into your everyday life. Discover charming pieces that evoke joy and warmth, transforming your surroundings into a haven of cuteness. lol
 
