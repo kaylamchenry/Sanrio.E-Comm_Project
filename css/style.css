@@ -158,7 +158,7 @@ max-height: 500px;
     position: static;
   }
 
-  @media (min-width: 576px)
+  @media (min-width: 576px){}
 .navbar-expand-sm .navbar-nav .dropdown-menu {
     position: static !important;
 }
