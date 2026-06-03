@@ -1,301 +1,45 @@
-// Sample product data - replace with your actual stickers
+// ==========================================
+// PRODUCT DATA
+// ==========================================
 const products = [
-    {
-        id: 1,
-        name: "Cute Bunny",
-        category: "cutie-babie",
-        price: 2.99,
-        image: "images/gem1.avif"
-    },
-    {
-        id: 2,
-        name: "Evil Laugh",
-        category: "evil",
-        price: 2.99,
-        image: "images/gem2.avif"
-    },
-    {
-        id: 3,
-        name: "Self Care",
-        category: "therapy",
-        price: 2.99,
-        image: "images/gem3.avif"
-    },
-    {
-        id: 4,
-        name: "Best Friends",
-        category: "besties",
-        price: 2.99,
-        image: "images/gem4.avif"
-    },
-    {
-        id: 5,
-        name: "Family Love",
-        category: "family",
-        price: 2.99,
-        image: "images/gem5.avif"
-    },
-    {
-        id: 6,
-        name: "Dog Buddy",
-        category: "animals",
-        price: 2.99,
-        image: "images/gem6.avif"
-    },
-    {
-        id: 7,
-        name: "Career Goals",
-        category: "career",
-        price: 2.99,
-        image: "images/gem7.avif"
-    },
-    {
-        id: 8,
-        name: "Party Time",
-        category: "cutie-babie",
-        price: 2.99,
-        image: "images/gem8.avif"
-    }
+    { id: 1, name: "Cute Bunny",    category: "cutie-babie", price: 2.99, image: "images/gem1.avif" },
+    { id: 2, name: "Evil Laugh",    category: "evil",        price: 2.99, image: "images/gem2.avif" },
+    { id: 3, name: "Self Care",     category: "therapy",     price: 2.99, image: "images/gem3.avif" },
+    { id: 4, name: "Best Friends",  category: "besties",     price: 2.99, image: "images/gem4.avif" },
+    { id: 5, name: "Family Love",   category: "family",      price: 2.99, image: "images/gem5.avif" },
+    { id: 6, name: "Dog Buddy",     category: "animals",     price: 2.99, image: "images/gem6.avif" },
+    { id: 7, name: "Career Goals",  category: "career",      price: 2.99, image: "images/gem7.avif" },
+    { id: 8, name: "Party Time",    category: "cutie-babie", price: 2.99, image: "images/gem8.avif" }
 ];
 
+// ==========================================
+// CART LOGIC
+// ==========================================
 let cart = [];
-let currentFilter = "all";
-let draggedSticker = null;
-let isMobile = window.innerWidth <= 768;
 
-// Initialize the app
-document.addEventListener('DOMContentLoaded', function() {
-    initializeNotebook();
-    setupEventListeners();
-    loadCartFromStorage();
-    detectDevice();
-});
-
-// Detect if mobile
-function detectDevice() {
-    isMobile = window.innerWidth <= 768;
-}
-
-window.addEventListener('resize', detectDevice);
-
-// Initialize Interactive Notebook
-function initializeNotebook() {
-    const floatingStickers = document.getElementById('floatingStickers');
-    const notebook = document.getElementById('notebook');
-
-    // Create floating sticker elements
-    renderFloatingStickers(products);
-
-    // Setup notebook drag and drop
-    notebook.addEventListener('dragover', handleDragOver);
-    notebook.addEventListener('drop', handleDrop);
-    notebook.addEventListener('dragleave', handleDragLeave);
-
-    // Setup reset button
-    document.getElementById('resetNotebook').addEventListener('click', function() {
-        notebook.innerHTML = '';
-    });
-}
-
-// Render floating stickers based on filter
-function renderFloatingStickers(productsToRender) {
-    const floatingStickers = document.getElementById('floatingStickers');
-    floatingStickers.innerHTML = '';
-
-    const filtered = currentFilter === 'all'
-        ? productsToRender
-        : productsToRender.filter(p => p.category === currentFilter);
-
-    filtered.forEach((product, index) => {
-        const sticker = document.createElement('div');
-        sticker.className = 'floating-sticker';
-        sticker.style.backgroundImage = `url('${product.image}')`;
-        sticker.draggable = true;
-        sticker.dataset.productId = product.id;
-        sticker.dataset.image = product.image;
-        sticker.title = product.name;
-
-        sticker.addEventListener('dragstart', handleDragStart);
-        sticker.addEventListener('touchstart', handleTouchStart, false);
-
-        floatingStickers.appendChild(sticker);
-    });
-}
-
-// Drag and Drop Handlers
-function handleDragStart(e) {
-    if (isMobile) return;
-    draggedSticker = {
-        image: e.target.dataset.image,
-        productId: e.target.dataset.productId
-    };
-    e.dataTransfer.effectAllowed = 'copy';
-    e.target.style.opacity = '0.5';
-}
-
-function handleDragOver(e) {
-    if (isMobile) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-    this.style.borderColor = '#cf7fb8';
-    this.style.borderWidth = '3px';
-}
-
-function handleDragLeave(e) {
-    if (isMobile) return;
-    this.style.borderColor = '#d4a574';
-    this.style.borderWidth = '8px';
-}
-
-function handleDrop(e) {
-    if (isMobile) return;
-    e.preventDefault();
-    this.style.borderColor = '#d4a574';
-    this.style.borderWidth = '8px';
-
-    if (draggedSticker) {
-        addStickerToNotebook(draggedSticker.image, e.offsetX, e.offsetY);
-        draggedSticker = null;
-    }
-}
-
-// Touch handlers for mobile
-let touchStartSticker = null;
-function handleTouchStart(e) {
-    if (!isMobile) return;
-    touchStartSticker = {
-        image: e.target.dataset.image,
-        productId: e.target.dataset.productId
-    };
-}
-
-document.addEventListener('touchend', function(e) {
-    if (!isMobile || !touchStartSticker) return;
-
-    const notebook = document.getElementById('notebook');
-    const touch = e.changedTouches[0];
-    const rect = notebook.getBoundingClientRect();
-
-    if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-        touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
-        addStickerToNotebook(touchStartSticker.image, x, y);
-    }
-    touchStartSticker = null;
-});
-
-// Add sticker to notebook
-function addStickerToNotebook(image, x, y) {
-    const notebook = document.getElementById('notebook');
-    const stickerEl = document.createElement('div');
-    stickerEl.className = 'placed-sticker';
-    stickerEl.style.backgroundImage = `url('${image}')`;
-    stickerEl.style.backgroundSize = 'contain';
-    stickerEl.style.backgroundRepeat = 'no-repeat';
-    stickerEl.style.width = '80px';
-    stickerEl.style.height = '80px';
-    stickerEl.style.left = (x - 40) + 'px';
-    stickerEl.style.top = (y - 40) + 'px';
-
-    // Make placed stickers draggable
-    stickerEl.draggable = true;
-    stickerEl.addEventListener('dragstart', handlePlacedDragStart);
-    stickerEl.addEventListener('dragend', handlePlacedDragEnd);
-    stickerEl.addEventListener('dblclick', function() {
-        stickerEl.remove();
-    });
-
-    // Mobile tap to remove
-    stickerEl.addEventListener('touchstart', function(e) {
-        setTimeout(() => {
-            if (e.target === stickerEl) {
-                stickerEl.remove();
-            }
-        }, 500);
-    });
-
-    notebook.appendChild(stickerEl);
-}
-
-// Handle dragging placed stickers
-function handlePlacedDragStart(e) {
-    if (isMobile) return;
-    e.dataTransfer.effectAllowed = 'move';
-    e.target.style.opacity = '0.7';
-    this.dragOffsetX = e.offsetX;
-    this.dragOffsetY = e.offsetY;
-}
-
-function handlePlacedDragEnd(e) {
-    e.target.style.opacity = '1';
-}
-
-// Setup event listeners
-function setupEventListeners() {
-    // Filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentFilter = this.dataset.filter;
-            renderFloatingStickers(products);
-        });
-    });
-
-    // Category dropdown
-    document.querySelectorAll('[data-category]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const category = this.dataset.category;
-            currentFilter = category;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
-            renderFloatingStickers(products);
-        });
-    });
-
-    // Add to cart buttons
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('add-to-cart-btn')) {
-            const productId = parseInt(e.target.dataset.id);
-            addToCart(productId);
-        }
-    });
-}
-
-// Add product to cart
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     const existingItem = cart.find(item => item.id === productId);
-
     if (existingItem) {
         existingItem.quantity++;
     } else {
-        cart.push({
-            ...product,
-            quantity: 1
-        });
+        cart.push({ ...product, quantity: 1 });
     }
-
     saveCartToStorage();
     showCartNotification();
 }
 
-// Show notification when item added
 function showCartNotification() {
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     const cartIcon = document.querySelector('.cart-icon');
-    cartIcon.textContent = `🛒 Cart (${cartCount})`;
+    if (cartIcon) cartIcon.textContent = cartCount > 0 ? `🛒 Cart (${cartCount})` : 'Cart';
 }
 
-// Save cart to localStorage
 function saveCartToStorage() {
     localStorage.setItem('sticker-cart', JSON.stringify(cart));
     showCartNotification();
 }
 
-// Load cart from localStorage
 function loadCartFromStorage() {
     const saved = localStorage.getItem('sticker-cart');
     if (saved) {
@@ -304,10 +48,274 @@ function loadCartFromStorage() {
     }
 }
 
-// Format category name
-function formatCategory(category) {
-    return category
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+// ==========================================
+// DRAG SYSTEM
+// ==========================================
+let globalZ = 10;
+
+function makeDraggable(el) {
+    let active = false, startX, startY, startLeft, startTop;
+    el.addEventListener('pointerdown', e => {
+        active = true;
+        el.setPointerCapture(e.pointerId);
+        startX = e.clientX; startY = e.clientY;
+        startLeft = parseFloat(el.style.left) || 0;
+        startTop = parseFloat(el.style.top) || 0;
+        el.style.zIndex = ++globalZ;
+        const rot = el.dataset.rotation || 0;
+        el.style.transform = `rotate(${rot}deg) scale(1.08)`;
+        el.style.cursor = 'grabbing';
+        e.preventDefault();
+    });
+    el.addEventListener('pointermove', e => {
+        if (!active) return;
+        el.style.left = (startLeft + e.clientX - startX) + 'px';
+        el.style.top = (startTop + e.clientY - startY) + 'px';
+    });
+    el.addEventListener('pointerup', () => {
+        active = false;
+        const rot = el.dataset.rotation || 0;
+        el.style.transform = `rotate(${rot}deg) scale(1)`;
+        el.style.cursor = 'grab';
+    });
 }
+
+function makeDraggableConstrained(el, getContainer) {
+    let active = false, startX, startY, startLeft, startTop;
+    el.addEventListener('pointerdown', e => {
+        active = true;
+        el.setPointerCapture(e.pointerId);
+        startX = e.clientX; startY = e.clientY;
+        startLeft = parseFloat(el.style.left) || 0;
+        startTop = parseFloat(el.style.top) || 0;
+        el.style.zIndex = ++globalZ;
+        const rot = el.dataset.rotation || 0;
+        el.style.transform = `rotate(${rot}deg) scale(1.08)`;
+        el.style.cursor = 'grabbing';
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    el.addEventListener('pointermove', e => {
+        if (!active) return;
+        let newLeft = startLeft + e.clientX - startX;
+        let newTop  = startTop  + e.clientY - startY;
+        const container = getContainer();
+        if (container) {
+            const elW = el.offsetWidth  || 70;
+            const elH = el.offsetHeight || 70;
+            newLeft = Math.max(0, Math.min(newLeft, container.offsetWidth  - elW));
+            newTop  = Math.max(0, Math.min(newTop,  container.offsetHeight - elH));
+        }
+        el.style.left = newLeft + 'px';
+        el.style.top  = newTop  + 'px';
+    });
+    el.addEventListener('pointerup', () => {
+        active = false;
+        const rot = el.dataset.rotation || 0;
+        el.style.transform = `rotate(${rot}deg) scale(1)`;
+        el.style.cursor = 'grab';
+    });
+}
+
+// ==========================================
+// CATEGORY FILTER
+// ==========================================
+let activeCategory = 'all';
+
+const categoryLabels = {
+    'all':          'All',
+    'cutie-babie':  'Cutie Babies',
+    'evil':         'Evil',
+    'therapy':      'Therapy',
+    'besties':      'Besties',
+    'family':       'Family',
+    'animals':      'Animals',
+    'career':       'Career'
+};
+
+function applyFilter(category) {
+    activeCategory = category;
+
+    // Sync active state across all pill groups
+    document.querySelectorAll('.pill').forEach(p => {
+        p.classList.toggle('active', p.dataset.category === category);
+    });
+
+    // Filter desk stickers
+    document.querySelectorAll('#desk .sticker-item').forEach(el => {
+        const match = category === 'all' || el.dataset.category === category;
+        const rot = el.dataset.rotation || 0;
+        if (match) {
+            el.style.opacity = '1';
+            el.style.pointerEvents = 'auto';
+            el.style.transform = `rotate(${rot}deg) scale(1)`;
+        } else {
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+            el.style.transform = `rotate(${rot}deg) scale(0.8)`;
+        }
+    });
+
+    // Filter product cards
+    document.querySelectorAll('#productsGrid .product-card').forEach(el => {
+        const match = category === 'all' || el.dataset.category === category;
+        el.classList.toggle('hidden-card', !match);
+    });
+
+    // Re-render mobile tray stickers
+    if (window.innerWidth < 768) {
+        renderTrayStickers();
+    }
+}
+
+// ==========================================
+// PRODUCT GRID
+// ==========================================
+function renderProductGrid() {
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.category = product.category;
+
+        const catLabel = categoryLabels[product.category] || product.category;
+
+        card.innerHTML = `
+            <div class="card-image-area">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="card-info">
+                <span class="card-category">${catLabel}</span>
+                <span class="card-name">${product.name}</span>
+                <div class="card-bottom">
+                    <span class="card-price">$${product.price.toFixed(2)}</span>
+                    <button class="add-to-cart-btn" data-id="${product.id}">Add to cart</button>
+                </div>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+// ==========================================
+// SCATTER STICKERS ON LOAD
+// ==========================================
+function scatterStickers() {
+    const desk = document.getElementById('desk');
+    if (!desk) return;
+
+    const stickers = desk.querySelectorAll('.sticker-item');
+    const deskW = desk.offsetWidth;
+    const deskH = desk.offsetHeight;
+    const stickerSize = 90;
+
+    stickers.forEach(el => {
+        const rotation = Math.round(Math.random() * 28 - 14);
+        el.dataset.rotation = rotation;
+
+        // Place avoiding comp-book area (roughly x:0-280, y:0-320)
+        let x, y, attempts = 0;
+        do {
+            x = Math.random() * (deskW - stickerSize - 20) + 10;
+            y = Math.random() * (deskH - stickerSize - 20) + 10;
+            attempts++;
+        } while (x < 290 && y < 330 && attempts < 50);
+
+        el.style.left = x + 'px';
+        el.style.top  = y + 'px';
+        el.style.transform = `rotate(${rotation}deg) scale(1)`;
+        el.style.opacity = '1';
+
+        makeDraggable(el);
+    });
+}
+
+// ==========================================
+// MOBILE TRAY
+// ==========================================
+function renderTrayStickers() {
+    const trayStickers = document.getElementById('trayStickers');
+    if (!trayStickers) return;
+    trayStickers.innerHTML = '';
+
+    const filtered = activeCategory === 'all'
+        ? products
+        : products.filter(p => p.category === activeCategory);
+
+    filtered.forEach(product => {
+        const thumb = document.createElement('img');
+        thumb.src = product.image;
+        thumb.alt = product.name;
+        thumb.className = 'tray-thumb';
+        thumb.addEventListener('click', () => {
+            if (window.innerWidth < 768) {
+                placeStickerInBook(product.image);
+            }
+        });
+        trayStickers.appendChild(thumb);
+    });
+}
+
+function placeStickerInBook(imageSrc) {
+    const bookCover = document.getElementById('bookCover');
+    if (!bookCover) return;
+
+    const coverW = bookCover.offsetWidth;
+    const coverH = bookCover.offsetHeight;
+    const stickerSize = 70;
+    const rotation = Math.round(Math.random() * 20 - 10);
+
+    const placed = document.createElement('img');
+    placed.src = imageSrc;
+    placed.style.cssText = [
+        'position:absolute',
+        `width:${stickerSize}px`,
+        `height:${stickerSize}px`,
+        'object-fit:contain',
+        `left:${coverW / 2 - stickerSize / 2}px`,
+        `top:${coverH / 2 - stickerSize / 2}px`,
+        `transform:rotate(${rotation}deg)`,
+        'cursor:grab',
+        'user-select:none',
+        'touch-action:none',
+        'filter:drop-shadow(2px 4px 10px rgba(90,60,50,0.25))',
+        `z-index:${++globalZ}`
+    ].join(';');
+    placed.dataset.rotation = rotation;
+
+    bookCover.appendChild(placed);
+    makeDraggableConstrained(placed, () => bookCover);
+}
+
+function setupMobileTray() {
+    document.querySelectorAll('#trayPills .pill').forEach(pill => {
+        pill.addEventListener('click', () => applyFilter(pill.dataset.category));
+    });
+    renderTrayStickers();
+}
+
+// ==========================================
+// INIT
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    loadCartFromStorage();
+    renderProductGrid();
+    scatterStickers();
+    setupMobileTray();
+
+    // Nav + shop pill listeners
+    document.querySelectorAll('#navPills .pill, #shopPills .pill').forEach(pill => {
+        pill.addEventListener('click', () => applyFilter(pill.dataset.category));
+    });
+
+    // Add-to-cart delegation
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-to-cart-btn')) {
+            addToCart(parseInt(e.target.dataset.id));
+        }
+    });
+});
