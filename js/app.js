@@ -2,14 +2,14 @@
 // PRODUCT DATA
 // ==========================================
 const products = [
-    { id: 1, name: "Cute Bunny",    category: "cutie-babie", price: 2.99, image: "images/gem1.avif" },
-    { id: 2, name: "Evil Laugh",    category: "evil",        price: 2.99, image: "images/gem2.avif" },
-    { id: 3, name: "Self Care",     category: "therapy",     price: 2.99, image: "images/gem3.avif" },
-    { id: 4, name: "Best Friends",  category: "besties",     price: 2.99, image: "images/gem4.avif" },
-    { id: 5, name: "Family Love",   category: "family",      price: 2.99, image: "images/gem5.avif" },
-    { id: 6, name: "Dog Buddy",     category: "animals",     price: 2.99, image: "images/gem6.avif" },
-    { id: 7, name: "Career Goals",  category: "career",      price: 2.99, image: "images/gem7.avif" },
-    { id: 8, name: "Party Time",    category: "cutie-babie", price: 2.99, image: "images/gem8.avif" }
+    { id: 1, name: "Cute Bunny",    category: "cutie-babie", price: 0.99, image: "images/gem1.avif" },
+    { id: 2, name: "Evil Laugh",    category: "evil",        price: 0.99, image: "images/gem2.avif" },
+    { id: 3, name: "Self Care",     category: "therapy",     price: 0.99, image: "images/gem3.avif" },
+    { id: 4, name: "Best Friends",  category: "besties",     price: 0.99, image: "images/gem4.avif" },
+    { id: 5, name: "Family Love",   category: "family",      price: 0.99, image: "images/gem5.avif" },
+    { id: 6, name: "Dog Buddy",     category: "animals",     price: 0.99, image: "images/gem6.avif" },
+    { id: 7, name: "Career Goals",  category: "career",      price: 0.99, image: "images/gem7.avif" },
+    { id: 8, name: "Party Time",    category: "cutie-babie", price: 0.99, image: "images/gem8.avif" }
 ];
 
 // ==========================================
