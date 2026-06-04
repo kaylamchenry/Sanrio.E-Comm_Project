@@ -1,3 +1,14 @@
+// ── YOUR JOURNAL COVERS ──────────────────────────
+// Drop images in images/ folder and add filenames below
+const journalCovers = [
+  'images/journal.jpeg',
+  // 'images/journal-2.jpeg',
+  // 'images/journal-3.jpeg',
+];
+// ─────────────────────────────────────────────────
+const randomCover = journalCovers[Math.floor(Math.random() * journalCovers.length)];
+document.getElementById('journal-cover').src = randomCover;
+
 // ==========================================
 // PRODUCT DATA
 // ==========================================
@@ -141,9 +152,9 @@ function applyFilter(category) {
         p.classList.toggle('active', p.dataset.category === category);
     });
 
-    // Filter desk stickers
+    // Filter desk stickers (decor items always stay visible)
     document.querySelectorAll('#desk .sticker-item').forEach(el => {
-        const match = category === 'all' || el.dataset.category === category;
+        const match = category === 'all' || el.dataset.category === category || el.dataset.category === 'decor';
         const rot = el.dataset.rotation || 0;
         if (match) {
             el.style.opacity = '1';
@@ -208,6 +219,11 @@ function scatterStickers() {
     const desk = document.getElementById('desk');
     if (!desk) return;
 
+    const journalFrame = document.getElementById('journal-frame');
+    if (journalFrame && window.innerWidth > 768) {
+        makeDraggable(journalFrame);
+    }
+
     const stickers = desk.querySelectorAll('.sticker-item');
     const deskW = desk.offsetWidth;
     const deskH = desk.offsetHeight;
@@ -217,7 +233,7 @@ function scatterStickers() {
         const rotation = Math.round(Math.random() * 28 - 14);
         el.dataset.rotation = rotation;
 
-        // Place avoiding comp-book area (roughly x:0-280, y:0-320)
+        // Place avoiding journal frame area (roughly x:0-280, y:0-320)
         let x, y, attempts = 0;
         do {
             x = Math.random() * (deskW - stickerSize - 20) + 10;
@@ -261,11 +277,11 @@ function renderTrayStickers() {
 }
 
 function placeStickerInBook(imageSrc) {
-    const bookCover = document.getElementById('bookCover');
-    if (!bookCover) return;
+    const frame = document.getElementById('journal-frame');
+    if (!frame) return;
 
-    const coverW = bookCover.offsetWidth;
-    const coverH = bookCover.offsetHeight;
+    const frameW = frame.offsetWidth;
+    const frameH = frame.offsetHeight;
     const stickerSize = 70;
     const rotation = Math.round(Math.random() * 20 - 10);
 
@@ -276,8 +292,8 @@ function placeStickerInBook(imageSrc) {
         `width:${stickerSize}px`,
         `height:${stickerSize}px`,
         'object-fit:contain',
-        `left:${coverW / 2 - stickerSize / 2}px`,
-        `top:${coverH / 2 - stickerSize / 2}px`,
+        `left:${frameW / 2 - stickerSize / 2}px`,
+        `top:${frameH / 2 - stickerSize / 2}px`,
         `transform:rotate(${rotation}deg)`,
         'cursor:grab',
         'user-select:none',
@@ -287,8 +303,8 @@ function placeStickerInBook(imageSrc) {
     ].join(';');
     placed.dataset.rotation = rotation;
 
-    bookCover.appendChild(placed);
-    makeDraggableConstrained(placed, () => bookCover);
+    frame.appendChild(placed);
+    makeDraggableConstrained(placed, () => frame);
 }
 
 function setupMobileTray() {
@@ -311,6 +327,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('#navPills .pill, #shopPills .pill').forEach(pill => {
         pill.addEventListener('click', () => applyFilter(pill.dataset.category));
     });
+
+    // Hamburger dropdown
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navDropdown = document.getElementById('nav-dropdown');
+    if (hamburgerBtn && navDropdown) {
+        hamburgerBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            navDropdown.classList.toggle('open');
+        });
+        document.addEventListener('click', e => {
+            if (!navDropdown.contains(e.target) && e.target !== hamburgerBtn) {
+                navDropdown.classList.remove('open');
+            }
+        });
+        navDropdown.querySelectorAll('.pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                applyFilter(pill.dataset.category);
+                navDropdown.classList.remove('open');
+            });
+        });
+    }
 
     // Add-to-cart delegation
     document.addEventListener('click', function(e) {

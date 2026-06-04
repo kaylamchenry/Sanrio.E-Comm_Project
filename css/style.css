@@ -19,7 +19,7 @@ body {
 #navbar {
     position: sticky;
     top: 0;
-    height: 52px;
+    height: 72px;
     background: #f0f5f2;
     border-bottom: 0.5px solid #d4c8be;
     padding: 0 24px;
@@ -29,13 +29,18 @@ body {
     z-index: 1000;
 }
 
-.logo {
+.nav-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-logo {
     font-family: 'Playwrite Polska', cursive;
     font-weight: 600;
     font-size: 24px;
     color: #d4849f;
-    text-decoration: none;
-    flex-shrink: 0;
 }
 
 .nav-right {
@@ -43,6 +48,36 @@ body {
     align-items: center;
     gap: 12px;
     overflow: hidden;
+}
+
+.hamburger {
+    display: none;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #7a6f68;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 4px;
+    line-height: 1;
+}
+
+#nav-dropdown {
+    display: none;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: #f0f5f2;
+    border-bottom: 0.5px solid #d4c8be;
+    z-index: 999;
+    padding: 12px 16px 14px;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#nav-dropdown.open {
+    display: flex;
 }
 
 /* ==========================================
@@ -96,7 +131,7 @@ body {
 #desk {
     position: relative;
     width: 100%;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 72px);
     background: #f7f3ee;
     background-image: repeating-linear-gradient(
         0deg,
@@ -109,70 +144,28 @@ body {
 }
 
 /* ==========================================
-   COMPOSITION BOOK
+   JOURNAL FRAME
    ========================================== */
-.comp-book {
+#journal-frame {
     position: absolute;
     left: 5%;
     top: 6%;
-    width: 230px;
-    height: 300px;
-    border-radius: 4px;
+    width: 430px;
+    height: 600px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 4px 8px 28px rgba(50,30,20,0.2);
-    display: flex;
+    cursor: grab;
+    touch-action: none;
     z-index: 5;
 }
 
-.book-spine {
-    width: 16px;
-    flex-shrink: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        #d4849f 0px,
-        #d4849f 4px,
-        #8aad9a 4px,
-        #8aad9a 8px
-    );
-}
-
-.book-cover {
-    flex: 1;
-    border-left: 1.5px solid #2c2420;
-    background: repeating-conic-gradient(#c0b8ac 0% 25%, #b0a89c 0% 50%) 0 0 / 9px 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.label-card {
-    width: 130px;
-    background: white;
-    border-radius: 5px;
-    padding: 10px 14px;
-    text-align: center;
-    border: 0.5px solid #e8e0d8;
-    position: relative;
-    z-index: 1;
+#journal-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     pointer-events: none;
-}
-
-.journal-title {
-    display: block;
-    font-family: 'Dancing Script', cursive;
-    font-weight: 600;
-    font-size: 16px;
-    color: #d4849f;
-    line-height: 1.3;
-}
-
-.journal-hint {
-    display: block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    color: #b0a8a0;
-    margin-top: 4px;
 }
 
 /* ==========================================
@@ -200,13 +193,20 @@ body {
     filter: drop-shadow(4px 8px 20px rgba(90,60,50,0.38));
 }
 
+.decor-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(2px 4px 8px rgba(90,60,50,0.15));
+}
+
 /* ==========================================
    SCROLL INDICATOR
    ========================================== */
-@keyframes scrollBounce {
+@keyframes bounce {
     0%, 100% {
         transform: translateX(-50%) translateY(0);
-        opacity: 0.45;
+        opacity: 0.5;
     }
     50% {
         transform: translateX(-50%) translateY(5px);
@@ -218,13 +218,14 @@ body {
     position: absolute;
     bottom: 16px;
     left: 50%;
-    font-family: 'DM Sans', sans-serif;
+    transform: translateX(-50%);
     font-size: 11px;
     color: #c8b8b0;
-    animation: scrollBounce 1.8s ease-in-out infinite;
-    z-index: 5;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.06em;
     pointer-events: none;
-    letter-spacing: 0.5px;
+    z-index: 50;
+    animation: bounce 1.8s ease-in-out infinite;
 }
 
 /* ==========================================
@@ -366,6 +367,107 @@ body {
 }
 
 /* ==========================================
+   JUMBOTRON
+   ========================================== */
+@keyframes jw-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#jumbotron {
+    background: #f0f5f2;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 40px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+#jumbotron::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 36px,
+        rgba(140,120,100,0.06) 36px,
+        rgba(140,120,100,0.06) 37px
+    );
+}
+
+#jumbotron::after {
+    content: '';
+    position: absolute;
+    left: 80px;
+    top: 0;
+    bottom: 0;
+    width: 0.5px;
+    background: rgba(212,132,159,0.3);
+    pointer-events: none;
+}
+
+.jumb-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+}
+
+.jumb-label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8aad9a;
+    margin-bottom: 20px;
+}
+
+.jumb-quote {
+    font-family: var(--quote-font, 'Dancing Script', cursive);
+    font-size: 58px;
+    font-weight: 600;
+    color: #5a5250;
+    line-height: 1.25;
+    margin-bottom: 24px;
+}
+
+.jw {
+    display: inline-block;
+    opacity: 0;
+    animation: jw-in 0.45s ease forwards;
+}
+
+.jumb-subline {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #b0a8a0;
+    opacity: 0;
+    animation: jw-in 0.45s ease forwards;
+    animation-delay: 2.55s;
+}
+
+.jumb-decor {
+    position: absolute;
+    font-size: 22px;
+    opacity: 0;
+    animation: jw-in 0.8s ease forwards;
+    pointer-events: none;
+}
+
+/* ==========================================
    MOBILE STICKER TRAY
    ========================================== */
 #sticker-tray {
@@ -438,6 +540,10 @@ body {
         display: none;
     }
 
+    .hamburger {
+        display: block;
+    }
+
     #desk {
         display: flex;
         flex-direction: column;
@@ -457,7 +563,7 @@ body {
         display: none;
     }
 
-    .comp-book {
+    #journal-frame {
         position: relative !important;
         left: auto !important;
         top: auto !important;
@@ -502,5 +608,17 @@ body {
 
     .card-image-area img {
         max-height: 110px;
+    }
+
+    #jumbotron {
+        padding: 32px 24px;
+    }
+
+    #jumbotron::after {
+        display: none;
+    }
+
+    .jumb-quote {
+        font-size: 36px;
     }
 }

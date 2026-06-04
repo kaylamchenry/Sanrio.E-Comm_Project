@@ -13,7 +13,10 @@
 
 <!-- NAVBAR -->
 <nav id="navbar">
-    <a class="logo" href="#">Plumpy</a>
+    <div class="nav-left">
+        <!-- <img src="images/logo.png" alt="Plumpy" height="40"> -->
+        <span class="nav-logo">Plumpy</span>
+    </div>
     <div class="nav-right">
         <div class="pill-group nav-pills" id="navPills">
             <button class="pill active" data-category="all">All</button>
@@ -26,21 +29,28 @@
             <button class="pill" data-category="career">Career</button>
         </div>
         <a class="cart-icon" href="#cart">Cart</a>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
     </div>
 </nav>
+
+<!-- HAMBURGER DROPDOWN -->
+<div id="nav-dropdown">
+    <button class="pill" data-category="all">All</button>
+    <button class="pill" data-category="cutie-babie">Cutie Babie</button>
+    <button class="pill" data-category="evil">Evil</button>
+    <button class="pill" data-category="therapy">Therapy</button>
+    <button class="pill" data-category="besties">Besties</button>
+    <button class="pill" data-category="family">Family</button>
+    <button class="pill" data-category="animals">Animals</button>
+    <button class="pill" data-category="career">Career</button>
+</div>
 
 <!-- DESK CANVAS -->
 <div id="desk">
 
-    <!-- Composition Book -->
-    <div class="comp-book">
-        <div class="book-spine"></div>
-        <div class="book-cover" id="bookCover">
-            <div class="label-card">
-                <span class="journal-title">my journal</span>
-                <span class="journal-hint">drag stickers here ♡</span>
-            </div>
-        </div>
+    <!-- Journal Image -->
+    <div id="journal-frame">
+        <img id="journal-cover" alt="my journal">
     </div>
 
     <!-- Desk Stickers -->
@@ -53,6 +63,16 @@
     <div class="sticker-item" data-category="career"><img src="images/gem7.avif" alt="Career Goals"></div>
     <div class="sticker-item" data-category="cutie-babie"><img src="images/gem8.avif" alt="Party Time"></div>
 
+    <!-- Decorative Stickers -->
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:28px">✦</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:24px">✦</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:32px">🌸</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:22px">🌿</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:26px">⭐</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:30px">🎀</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:18px">🌷</div>
+    <div class="sticker-item decor-item" data-category="decor" style="font-size:24px">💫</div>
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator">↓</div>
 </div>
@@ -62,7 +82,7 @@
     <div class="shop-header">
         <div class="shop-header-left">
             <span class="collection-label">✦ THE COLLECTION</span>
-            <h2 class="shop-heading">Shop stickers</h2>
+            <h2 class="shop-heading">Sticker Collection</h2>
         </div>
         <div class="pill-group shop-pills" id="shopPills">
             <button class="pill active" data-category="all">All</button>
@@ -76,6 +96,39 @@
         </div>
     </div>
     <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- JUMBOTRON -->
+<section id="jumbotron">
+    <span class="jumb-decor" style="top:20px;left:20px;transform:rotate(-15deg);animation-delay:0.2s">🌸</span>
+    <span class="jumb-decor" style="top:20px;right:20px;transform:rotate(20deg);animation-delay:0.4s">✦</span>
+    <span class="jumb-decor" style="top:45%;left:24px;transform:rotate(-10deg);animation-delay:0.6s">🌿</span>
+    <span class="jumb-decor" style="top:45%;right:24px;transform:rotate(15deg);animation-delay:0.8s">🎀</span>
+    <span class="jumb-decor" style="bottom:24px;left:48px;transform:rotate(-5deg);animation-delay:1.0s">⭐</span>
+    <span class="jumb-decor" style="bottom:24px;right:48px;transform:rotate(10deg);animation-delay:1.2s">🌷</span>
+    <div class="jumb-inner">
+        <span class="jumb-label">✦ what is junk journaling?</span>
+        <p class="jumb-quote">
+            <span class="jw" style="animation-delay:0.00s">Junk</span>
+            <span class="jw" style="animation-delay:0.15s">journaling</span>
+            <span class="jw" style="animation-delay:0.30s">is</span>
+            <span class="jw" style="animation-delay:0.45s">finding</span>
+            <span class="jw" style="animation-delay:0.60s">little</span>
+            <span class="jw" style="animation-delay:0.75s">bits</span>
+            <span class="jw" style="animation-delay:0.90s">of</span>
+            <span class="jw" style="animation-delay:1.05s;color:#d4849f">joy</span>
+            <span class="jw" style="animation-delay:1.20s">during</span>
+            <span class="jw" style="animation-delay:1.35s">the</span>
+            <span class="jw" style="animation-delay:1.50s">day</span>
+            <span class="jw" style="animation-delay:1.65s">and</span>
+            <span class="jw" style="animation-delay:1.80s">saving</span>
+            <span class="jw" style="animation-delay:1.95s">them</span>
+            <span class="jw" style="animation-delay:2.10s">to</span>
+            <span class="jw" style="animation-delay:2.25s">create</span>
+            <span class="jw" style="animation-delay:2.40s;color:#8aad9a">art</span>
+        </p>
+        <span class="jumb-subline">scroll back up and start decorating ↑</span>
+    </div>
 </section>
 
 <!-- MOBILE STICKER TRAY -->
